@@ -49,5 +49,4 @@ SUI_COIN{}
 
 #[test_only]
 public fun run_init(ctx:&mut TxContext){
-    init(create_suicoin_instance(),ctx);    
 }
