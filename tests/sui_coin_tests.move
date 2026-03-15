@@ -1,19 +1,31 @@
-/*
 #[test_only]
-module sui_coin::sui_coin_tests;
-// uncomment this line to import the module
-// use sui_coin::sui_coin;
+module sui_coin::sui_coin_test;
 
-#[error(code = 0)]
-const ENotImplemented: vector<u8> = b"Not Implemented";
+use sui_coin::sui_coin::{Self,SUI_COIN};
+use sui::test_scenario;
+use sui::coin::{Self,Coin,TreasuryCap};
+use std::unit_test::assert_eq;
+
 
 #[test]
-fun test_sui_coin() {
-    // pass
+public fun test_init(){
+        let alice = @0xA;
+        let mut scenario = test_scenario::begin(alice);
+        
+        sui_coin::run_init(scenario.ctx());
+        scenario.next_tx(alice);    
+        let item = scenario.take_from_sender<Coin<SUI_COIN>>();
+
+        // let mut treasury = scenario.take_from_sender<TreasuryCap<SUI_COIN>>();
+        let coins:u64=30000000000;
+        assert!(coin::value(&item) == coins, 1);
+        
+
+        scenario.return_to_sender(item);
+        scenario.end();
+
+
 }
 
-#[test, expected_failure(abort_code = ::sui_coin::sui_coin_tests::ENotImplemented)]
-fun test_sui_coin_fail() {
-    abort ENotImplemented
-}
-*/
+
+

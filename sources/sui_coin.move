@@ -31,3 +31,23 @@ fun init(witness: SUI_COIN, ctx: &mut TxContext) {
     transfer::public_freeze_object(metadata);
     transfer::public_transfer(treasury, tx_context::sender(ctx));
 }
+
+entry fun mint(
+    treasury_cap: &mut TreasuryCap<SUI_COIN>,
+    amount: u64,
+    recipient: address,
+    ctx: &mut TxContext,
+) {
+    let coin = coin::mint(treasury_cap, amount, ctx);
+    transfer::public_transfer(coin, recipient);
+}
+
+#[test_only]
+public fun create_suicoin_instance():SUI_COIN{
+SUI_COIN{}
+}
+
+#[test_only]
+public fun run_init(ctx:&mut TxContext){
+    init(create_suicoin_instance(),ctx);    
+}
