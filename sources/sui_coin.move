@@ -5,6 +5,7 @@ use sui::url;
 
 public struct SUI_COIN has drop {}
 
+#[allow(deprecated_usage)]
 fun init(witness: SUI_COIN, ctx: &mut TxContext) {
     // Create the icon URL
     let icon_url = url::new_unsafe_from_bytes(b"https://cryptologos.cc/logos/sui-sui-logo.png");
@@ -49,4 +50,5 @@ SUI_COIN{}
 
 #[test_only]
 public fun run_init(ctx:&mut TxContext){
+    init(create_suicoin_instance(), ctx)
 }

@@ -4,8 +4,8 @@ module sui_coin::sui_coin_test;
 use sui_coin::sui_coin::{Self,SUI_COIN};
 use sui::test_scenario;
 use sui::coin::{Self,Coin,TreasuryCap};
-use std::unit_test;
-use sui::balance;
+
+
 
 
 #[test]
